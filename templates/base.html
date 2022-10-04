@@ -13,13 +13,13 @@
 </head>
 <body>
     <div>
-        <nav class="navbar navbar-expand-sm h4">
+        <nav class="navbar navbar-expand-md h4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'home' %}">Лого</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNavbar">
-                    <span class="navbar-toggle-icon"></span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="collapseNavbar">
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'home' %}">Головна</a>
@@ -37,12 +37,12 @@
                             <a class="nav-link" href="{% url 'contacts' %}">Контакти</a>
                         </li>
                     </ul>
+                    <form class="d-flex float-end">
+                        <a class="btn btn-primary" href="#">Вхід</a>
+                        <a class="btn btn-primary" href="#">Реєстрація</a>
+                    </form>
                 </div>
             </div>
-            <span class="float-end">
-                <a class="btn btn-primary" href="#">Вхід</a>
-                <a class="btn btn-primary" href="#">Реєстрація</a>
-            </span>
         </nav>
     </div>
     <div class="m-1">
@@ -53,3 +53,4 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </div>
 </body>
+</html>
