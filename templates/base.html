@@ -8,12 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <title>{% block title %}App{% endblock title %}</title>
 </head>
 <body>
     <div>
-        <nav class="navbar navbar-expand-md h4">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark h5">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'home' %}">Лого</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -25,21 +26,21 @@
                             <a class="nav-link" href="{% url 'home' %}">Головна</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">Про Нас</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="#">Пропозиція</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Запит</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">Про нас</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'contacts' %}">Контакти</a>
                         </li>
                     </ul>
                     <form class="d-flex float-end">
+                        <a class="btn btn-primary me-1" href="#">Реєстрація</a>
                         <a class="btn btn-primary" href="#">Вхід</a>
-                        <a class="btn btn-primary" href="#">Реєстрація</a>
                     </form>
                 </div>
             </div>
