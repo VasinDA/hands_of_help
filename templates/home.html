@@ -10,7 +10,7 @@
             <button type="button" data-bs-target="#homepagecarousel" data-bs-slide-to="1"></button>
             <button type="button" data-bs-target="#homepagecarousel" data-bs-slide-to="2"></button>
         </div>
-        <div class="mx-auto col-lg-12 col-xl-10 col-xxl-8">
+        <div class="mx-auto col-xl-12 col-xxl-8">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="{% static 'img/ukr1.jpg' %}" alt="1" class="d-block" style="width:100%">
@@ -32,8 +32,19 @@
     </div>
 </div>
 <div class="container-fluid mt-5">
-    <h4 class="text-secondary">Останні надходження</h4>
-    <hr>
+    <h4 class="text-secondary">Останні оголошення</h4>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <hr>
+            <h5 class="text-secondary">Пропозиції</h5>
+        </div>
+        <div class="col-md-6">
+            <hr>
+            <h5 class="text-secondary">Запити</h5>
+        </div>
+    </div>
 </div>
+
   
 {% endblock content %}
