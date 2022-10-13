@@ -5,5 +5,5 @@ from .forms import UserRegisterForm
 class SignUpView(CreateView):
     form_class = UserRegisterForm
     success_url = reverse_lazy('login')
-    template_name = "home.html"
+    template_name = "base.html"
     success_message = "Your profile was created successfully"
