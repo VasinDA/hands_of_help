@@ -56,10 +56,8 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form class="mb-3 mt-3" method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button class="btn btn-success" type="submit">Увійти</button><br>
+                <form class="mb-3 mt-3" >
+                    {% include 'registration/login.html' %}
                     <button class="btn btn-primary mt-2" type="button" data-bs-toggle="modal" data-bs-target="#signup">
                         Зареєствуватися
                     </button>
