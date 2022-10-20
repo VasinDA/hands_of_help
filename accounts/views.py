@@ -1,9 +1,10 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from bootstrap_modal_forms.generic import BSModalCreateView
 from .forms import UserRegisterForm
+
  
-class SignUpView(CreateView):
+class SignUpView(BSModalCreateView):
     form_class = UserRegisterForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('')
     template_name = "registration/signup.html"
-    success_message = "Your profile was created successfully"
+    success_message = "Ваш профіль успішно створено"
