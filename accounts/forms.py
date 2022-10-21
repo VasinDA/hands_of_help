@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from bootstrap_modal_forms.forms import BSModalModelForm
+from django.contrib.auth.forms import UserCreationForm
  
-class UserRegisterForm(BSModalModelForm):
+class UserRegisterForm(UserCreationForm):
   email = forms.EmailField()
  
   class Meta:

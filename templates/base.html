@@ -12,16 +12,6 @@
     <title>{% block title %}Руки допомоги{% endblock title %}</title>
 </head>
 <body>
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content"></div>
-        </div>
-    </div>
-    <div class="modal fade" id="modal-auth" tabindex="-1" role="dialog" id="modal">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content"></div>
-        </div>
-      </div>
     <div>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark h5">
             <div class="container-fluid">
@@ -50,8 +40,13 @@
                     <div class="navbar-collapse justify-content-end">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <button id="login-btn" class="btn btn-primary" type="button" name="button">login</button>
-                                <button id="signup-btn" class="btn btn-primary" type="button" name="button">Sign up</button>
+                                {% if user.is_authenticated %}
+                                <span class="text-white h6">Привіт {{ user.first_name }}</span>
+                                    <a class="btn btn-outline-light" href="{% url 'logout' %}">Вийти</a>
+                                {% else %}
+                                    <a class="btn btn-outline-light" href="{% url 'login' %}">Вхід</a>
+                                    <a class="btn btn-outline-light" href="{% url 'signup' %}">Реєстрація</a>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
@@ -67,25 +62,7 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript">
-            $(function () {
-              // Log in button
-              $("#login-btn").modalForm({
-                  formURL: "{% url 'login' %}"
-              });
-            });
-        </script>
-        <script type="text/javascript">
-            $(function () {
-              // Sign up button
-              $("#signup-btn").modalForm({
-                  modalID: "#modal-auth",
-                  formURL: "{% url 'signup' %}"
-              });
-            });
-          </script>
-    </div>
-    
+            
     <div class="mt-4 p-1 bg-dark text-secondary text-center fixed-bottom">
         <p><h4>Руки допомоги</h4></p>
     </div>
