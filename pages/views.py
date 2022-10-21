@@ -1,3 +1,5 @@
+from .forms import ContactForm
+from django.core.mail import send_mail, BadHeaderError
 from django.views.generic import TemplateView
 
 class HomePageView(TemplateView):
