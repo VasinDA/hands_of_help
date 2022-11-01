@@ -2,34 +2,36 @@
 {% block title %}Контакти{% endblock title %}
 
 {% block content %}
+
 <ul class="breadcrumb ms-4">
     <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="bi bi-house-door-fill"></i></a></li>
     <li class="breadcrumb-item active">Контакти</li>
 </ul>
-<div class="row mt-3 ms-3">
-    <h2>Зв'язатися з нами:</h2>
-    <div>
-        <address>
-            Україна, м. Дніпро<br>
-            проспект Яворницького 1<br>
-            тел. +38 050 361 66 55<br>
-            Наш email:<br>
-            <a href="mailto:handsofhelp@gmail.com">handsofhelpukraine@gmail.com</a>
-        </address>
-        <form action="" method="post">
-            <div class="col-md-3">
-                <div class="mb-3 mt-3">
-                    <label for="text">Ім'я:</label>
-                    <input type="text" class="form-control" id="text" placeholder="Ім'я">
+<div class="container-fluid">
+    <div class="row mt-3 ms-3">
+        <h2>Зв'язатися з нами:</h2>
+        <div>
+            <address>
+                Україна, м. Дніпро<br>
+                проспект Яворницького 1<br>
+                тел. +38 050 361 66 55<br>
+                Наш email:<br>
+                <a href="mailto:handsofhelp@gmail.com">handsofhelpukraine@gmail.com</a>
+            </address>
+            <form action="" method="post">
+                <div class="col-md-3">
+                    <div class="mb-3 mt-3">
+                        <label for="text">Ім'я:</label>
+                        <input type="text" class="form-control" id="text" placeholder="Ім'я">
+                    </div>
+                    <div class="mb-3">
+                        <label for="comment">Повідомлення:</label>
+                        <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="comment">Повідомлення:</label>
-                    <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
-                </div>
-            </div>
-            <a class="btn btn-primary" href="#">Надіслати</a>
-        </form>
+                <button class="btn btn-primary" href="#" disabled>Надіслати</button>
+            </form>
+        </div>
     </div>
-
 </div>
 {% endblock content %}
