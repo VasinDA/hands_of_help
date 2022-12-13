@@ -139,3 +139,5 @@ EMAIL_HOST_USER = 'handsofhelpukraine@gmail.com'
 EMAIL_HOST_PASSWORD = '4D6e1823'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
