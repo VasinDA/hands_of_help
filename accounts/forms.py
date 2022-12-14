@@ -47,4 +47,15 @@ class UserRegisterForm(UserCreationForm):
       last_name = self.cleaned_data['last_name'],
       phone = self.cleaned_data['phone'],
       )  
-    return user  
+    return user
+
+class UserChangePassword(UserChangeForm):
+  password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput)  
+  password2 = forms.CharField(label='Підтвердити пароль', widget=forms.PasswordInput)
+
+  class Meta:  
+    model = CustomUser
+    fields = ('password1', 'password2')
+  
+  
+  

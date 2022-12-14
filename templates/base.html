@@ -42,6 +42,7 @@
                             <li class="nav-item">
                                 {% if user.is_authenticated %}
                                 <span class="text-white h6">Привіт {{ user.first_name }}</span>
+                                    <a class="btn btn-outline-light" href="{% url 'changepassword' %}">Зміна паролю</a>
                                     <a class="btn btn-outline-light" href="{% url 'logout' %}">Вийти</a>
                                 {% else %}
                                     <a class="btn btn-outline-light" href="{% url 'login' %}">Вхід</a>
