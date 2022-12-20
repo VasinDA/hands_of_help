@@ -19,21 +19,21 @@ class UserRegisterForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'phone', 
         'password1', 'password2')
 
-  def username_clean(self):  
+  def clean_username(self):  
     username = self.cleaned_data['username'].lower()  
     new = CustomUser.objects.filter(username = username)  
     if new.count():  
       raise ValidationError("Такий користувач вже існує")  
     return username
     
-  def email_clean(self):  
+  def clean_email(self):  
     email = self.cleaned_data['email'].lower()  
     new = CustomUser.objects.filter(email = email)
     if new.count():  
         raise ValidationError("Такий Email вже існує в базі")  
     return email  
   
-  def clean_password(self):  
+  def clean(self):  
     password1 = self.cleaned_data['password1']  
     password2 = self.cleaned_data['password2']  
     if password1 and password2 and password1 != password2:  
@@ -60,7 +60,7 @@ class UserChangePassword(PasswordChangeForm):
     model = CustomUser
     fields = ('old_password', 'new_password1', 'new_password2')
   
-  def clean_changed_password(self):  
+  def clean(self):  
     user = CustomUser.objects.get(username=request.user)
     old_password = self.cleaned_data['old_password']
     new_password1 = self.cleaned_data['new_password1']
