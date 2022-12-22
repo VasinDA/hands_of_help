@@ -7,8 +7,8 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
  
 class UserRegisterForm(UserCreationForm):
   username = forms.CharField(label='Користувач', min_length=3, max_length=150)
-  first_name = forms.CharField(label="Ім'я", max_length=150)
-  last_name = forms.CharField(label='Призвище', max_length=150)
+  first_name = forms.CharField(label="Ім'я", max_length=150, required=False)
+  last_name = forms.CharField(label='Призвище', max_length=150, required=False)
   email = forms.EmailField(label='Пошта')
   phone = forms.CharField(label='Телефон', min_length=10, max_length=15)
   password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput)  
@@ -45,8 +45,8 @@ class UserRegisterForm(UserCreationForm):
       self.cleaned_data['username'],
       self.cleaned_data['email'],  
       self.cleaned_data['password1'],
-      first_name = self.cleaned_data['first_name'],
-      last_name = self.cleaned_data['last_name'],
+      first_name = self.cleaned_data['first_name'] or 'User',
+      last_name = self.cleaned_data['last_name'] or 'User',
       phone = self.cleaned_data['phone'],
       )  
     return user
