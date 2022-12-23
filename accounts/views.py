@@ -1,7 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from .forms import UserRegisterForm, UserChangePassword
-
  
 class SignUpView(CreateView):
     form_class = UserRegisterForm
