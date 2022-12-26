@@ -10,7 +10,7 @@ class OffersListView(ListView):
     model = Offers
     template_name = "offers_list.html"
 
-class OffersDetailView(LoginRequiredMixin, CreateView):
+class OffersDetailView(LoginRequiredMixin, DetailView):
     model = Offers
     template_name = "offers_detail.html"
 
