@@ -16,6 +16,7 @@ class OffersDetailView(LoginRequiredMixin, DetailView):
 
 class OffersCreateView(LoginRequiredMixin, CreateView):
     model = Offers
+    fields = '__all__'
     template_name = "offers_new.html"
 
     def form_valid(self, form):

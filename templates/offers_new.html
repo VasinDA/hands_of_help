@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Нова пропозиція{% endblock title %}
+
+{% block content %}
+<ul class="breadcrumb ms-4">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="bi bi-house-door-fill"></i></a></li>
+    <li class="breadcrumb-item active">Нова пропозиція</li>
+<h2>Нова пропозиція</h2>
+<form action="" method="post">
+    <div class="card mt-4 card-edit bg-black bg-opacity-50">
+        <div class="card-body bg-secondary">
+            {% csrf_token %}
+            {{ form|crispy }}
+        </div>
+        <div class="card-footer text-center text-muted">
+            <input class= "btn btn-primary" type="submit" value="Save">
+        </div>
+    </div>
+</form>
+{% endblock content %}

@@ -4,8 +4,8 @@ from django.urls import reverse
 class Offers(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField()
-    ulr_image = models.URLField()
-    location = models.CharField(max_length=255)
+    url_image = models.URLField(blank=True)
+    location = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
         'accounts.CustomUser',
@@ -16,4 +16,4 @@ class Offers(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("offers_detail", kwargs=("pk", self.pk))
+        return reverse("offers_detail", kwargs={"pk": self.pk})
