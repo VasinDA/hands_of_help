@@ -1,4 +1,5 @@
 from django.views import View
+from .forms import CreationOffersForm
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -15,8 +16,7 @@ class OffersDetailView(LoginRequiredMixin, DetailView):
     template_name = "offers_detail.html"
 
 class OffersCreateView(LoginRequiredMixin, CreateView):
-    model = Offers
-    fields = '__all__'
+    model = CreationOffersForm
     template_name = "offers_new.html"
 
     def form_valid(self, form):
