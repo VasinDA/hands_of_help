@@ -6,16 +6,19 @@
 <ul class="breadcrumb ms-4">
     <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="bi bi-house-door-fill"></i></a></li>
     <li class="breadcrumb-item active">Нова пропозиція</li>
+</ul>
 <h2>Нова пропозиція</h2>
 <form action="" method="post">
-    <div class="card mt-4 card-edit bg-black bg-opacity-50">
-        <div class="card-body bg-secondary">
+    <div class="container-fluid"></div>
+    <div class="card mt-4 card-edit bg-light bg-opacity-50 mx-auto" style="max-width: 85%;">
+        <div class="card-body bg-light">
             {% csrf_token %}
             {{ form|crispy }}
         </div>
         <div class="card-footer text-center text-muted">
             <input class= "btn btn-primary" type="submit" value="Зберегти">
         </div>
+    </div>
     </div>
 </form>
 {% endblock content %}

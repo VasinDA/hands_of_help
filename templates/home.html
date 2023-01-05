@@ -38,6 +38,24 @@
             <div class="col-md-6">
                 <hr>
                 <h5 class="text-secondary">Пропозиції</h5>
+                {% for offers in offers_list %}
+                <div class="container-fluid">
+                    <div class="card card-list bg-light bg-opacity-50">
+                        <div class="card-header">
+                            <span class="font-weight-bold">{{ offers.title }}</span> &middot;
+                            <span class="text-muted">by {{ offers.author }} |
+                                {{ offers.date }} | {{ offers.location }}</span>
+                        </div>
+                        <div class="card-body bg-light post-entry">
+                            <p>{{ offers.body }}</p>
+                        </div>
+                        <div class="card-footer text-center text-muted">
+                            <a class = "btn btn-success" href="{% url 'offers_detail' offers.pk %}">Детально</a>  
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                {% endfor %}
             </div>
             <div class="col-md-6">
                 <hr>

@@ -7,7 +7,6 @@ class CreationOffersForm(forms.ModelForm):
     url_image = forms.URLField(label='Посилання на фото')
     location= forms.CharField(label='Місцезнаходження')
     
-
     class Meta:
         model = Offers
         fields = ['title', 'body', 'url_image', 'location']
