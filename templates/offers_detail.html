@@ -3,14 +3,17 @@
 {% block title %}Пропозиція{% endblock title %}
 
 {% block content %}
-<div class="card bg-black bg-opacity-50">
+<div class="card bg-light bg-opacity-50">
     <div class="card-header">
         <span class="font-weight-bold">{{ offers.title }}</span> &middot;
         <span class="text-muted">by {{ offers.author }} |
             {{ offers.date }}</span>
     </div>
-    <div class="card-body bg-secondary">
-        {{ offers.body }}
+    <div class="card-body bg-light post-entry">
+        <p>{{ offers.body }}</p>
+        <p>{{ offers.location }}</p>
+        <p>{{ offers.url_image }}</p>
+        <p>{{ user.phone }}</p>
     </div>
     <div class="card-footer text-center text-muted">
         {% if user.is_authenticated %}
