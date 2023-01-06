@@ -1,5 +1,5 @@
 from django.views import View
-from .forms import CreationOffersForm
+from .forms import CreationOffersForm, UpdateOffersForm
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -25,9 +25,9 @@ class OffersCreateView(LoginRequiredMixin, CreateView):
 
 class OffersUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Offers
+    form_class = UpdateOffersForm
     template_name = "offers_edit.html"
-    fields = ["title", "body"]
-
+    
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
