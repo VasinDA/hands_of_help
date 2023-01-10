@@ -33,23 +33,14 @@ class UserRegisterForm(UserCreationForm):
         raise ValidationError("Такий Email вже існує в базі")  
     return email  
   
-  def clean_password(self):  
-    password1 = self.cleaned_data['password1']  
-    password2 = self.cleaned_data['password2']  
+  def clean(self):
+    cleaned_data = super().clean()  
+    password1 = cleaned_data.get('password1')  
+    password2 = cleaned_data.get('password2')  
     if password1 and password2 and password1 != password2:  
-      raise ValidationError("Паролі не співпадають")  
-    return password2  
+        raise ValidationError("Паролі не співпадають")  
   
-  def save(self, commit = True):  
-    user = CustomUser.objects.create_user(  
-      self.cleaned_data['username'],
-      self.cleaned_data['email'],  
-      self.cleaned_data['password1'],
-      first_name = self.cleaned_data['first_name'] or 'User',
-      last_name = self.cleaned_data['last_name'] or 'User',
-      phone = self.cleaned_data['phone'],
-      )  
-    return user
+  
 
 class UserChangePassword(PasswordChangeForm):
   old_password = forms.CharField(label='Старий пароль', widget=forms.PasswordInput)
