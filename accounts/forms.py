@@ -33,14 +33,12 @@ class UserRegisterForm(UserCreationForm):
         raise ValidationError("Такий Email вже існує в базі")  
     return email  
   
-  def clean(self):
-    cleaned_data = super().clean()  
-    password1 = cleaned_data.get('password1')  
-    password2 = cleaned_data.get('password2')  
-    if password1 and password2 and password1 != password2:  
-        raise ValidationError("Паролі не співпадають")  
-  
-  
+  def clean_password2(self):
+    password1 = self.cleaned_data['password1']  
+    password2 = self.cleaned_data['password2']  
+    if (password1 !="" and password2 !="") and (password1 != password2):  
+        raise ValidationError("Паролі не співпадають")
+    return password2
 
 class UserChangePassword(PasswordChangeForm):
   old_password = forms.CharField(label='Старий пароль', widget=forms.PasswordInput)
@@ -54,10 +52,13 @@ class UserChangePassword(PasswordChangeForm):
   def clean_password(self):  
     user = CustomUser.objects.get(username=request.user)
     old_password = self.cleaned_data['old_password']
-    new_password1 = self.cleaned_data['new_password1']
-    new_password2 = self.cleaned_data['new_password2']
     if not check_password(old_password, user.password):
       raise ValidationError("Ввели не вірний пароль")
-    if new_password1 and new_password2 and new_password1 != new_password2:  
-      raise ValidationError("Паролі не співпадають")  
+    
+        
+  def clean_new_password2(self):
+    new_password1 = self.cleaned_data['new_password1']
+    new_password2 = self.cleaned_data['new_password2']
+    if (new_password1 != "" and new_password2 != "") and (new_password1 != new_password2):
+          raise ValidationError("Паролі не співпадають")  
     return new_password2

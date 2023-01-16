@@ -9,7 +9,7 @@ class HomePageView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['offers'] = Offers.objects.order_by('date')[0]
+        context['offers_list'] = Offers.objects.all().order_by('-date')[:5]
         return context
 
 class AboutPageView(TemplateView):
