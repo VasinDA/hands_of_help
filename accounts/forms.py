@@ -50,10 +50,10 @@ class UserChangePassword(PasswordChangeForm):
     fields = ('old_password', 'new_password1', 'new_password2')
   
   def clean_old_password(self):  
-    user = CustomUser.objects(username=request.user)
-    old_password = self.cleaned_data['old_password']
-    if not check_password(old_password, user.password):
-      raise ValidationError("Ввели не вірний пароль")
+    try:
+      return super(UserChangePassword, self).clean_old_password()
+    except forms.ValidationError:
+      raise forms.ValidationError("Ввели не вірний пароль")
     
         
   def clean_new_password2(self):
