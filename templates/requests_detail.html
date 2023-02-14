@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Запрос{{ requests.title }} {% endblock title %}
+
+{% block content %}
+<ul class="breadcrumb ms-4">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="bi bi-house-door-fill"></i></a></li>
+    <li class="breadcrumb-item"><a href="{% url 'requests_list' %}">Запроси</a></li>
+    <li class="breadcrumb-item active">{{ requests.title }}</li>
+</ul>
+<div class="card bg-light bg-opacity-50 mx-auto" style="max-width: 85%;">
+    <div class="card-header">
+        <span class="font-weight-bold">{{ requests.title }}</span> &middot;
+        <span class="text-muted">by {{ requests.author }} |
+            {{ requests.date }}</span>
+    </div>
+    <div class="row g-0">
+        <div class="col-md-12">
+            <div class="card-body bg-light post-entry">
+                <p><h6>Опис:</h6>{{ requests.body }}</p>
+                <p><h6>Місто:</h6>{{ requests.location }}</p>
+                <p><h6>Телефон:</h6>{{ user.phone }}</p>
+            </div>
+        </div>
+    
+    {% if user.is_authenticated and user.id == requests.author_id %}
+        <div class="card-footer align-content-center p-0"></div>
+            <a class = "btn btn-primary col-md-6" href="{% url 'requests_edit' requests.pk %}">Редагувати</a>
+            <a class = "btn btn-danger col-md-6" href="{% url 'requests_delete' requests.pk %}">Видалити</a>
+        </div>
+    {% endif %}
+    </div>
+</div>
+</br>
+<a href="{% url 'requests_list' %}" class="btn btn-primary ms-4">До запросу</a>
+{% endblock content %}

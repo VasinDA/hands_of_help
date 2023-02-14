@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block title %}Пропозиція{{ offers.title }} {% endblock title %}
+{% block title %}Запрос{{ requests.title }} {% endblock title %}
  
 {% block content %}
-<h2>Видалити пропозицію</h2>
+<h2>Видалити запрос</h2>
 <ul class="breadcrumb ms-4">
     <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="bi bi-house-door-fill"></i></a></li>
-    <li class="breadcrumb-item"><a href="{% url 'offers_list' %}">ПропозиціЇ</a></li>
-    <li class="breadcrumb-item active">{{ offers.title }}</li>
+    <li class="breadcrumb-item"><a href="{% url 'requests_list' %}">ПропозиціЇ</a></li>
+    <li class="breadcrumb-item active">{{ requests.title }}</li>
 </ul>
 <form action="" method="post">
     {% csrf_token %}
-   <h6>Ви впевнені що хочете відалити пропозицію?</h6>
+   <h6>Ви впевнені що хочете відалити запрос?</h6>
     <div class="card bg-light bg-opacity-50 mx-auto mt-4" style="max-width: 85%;">
         <div class="card-header">
-            <span class="font-weight-bold">{{ offers.title }}</span> &middot;
-            <span class="text-muted">by {{ offers.author }} |
-                {{ offers.date }}</span>
+            <span class="font-weight-bold">{{ requests.title }}</span> &middot;
+            <span class="text-muted">by {{ requests.author }} |
+                {{ requests.date }}</span>
         </div>
         <div class="card-footer text-center text-muted">
             <input class= "btn btn-primary" type="submit" value="Підтвердити">

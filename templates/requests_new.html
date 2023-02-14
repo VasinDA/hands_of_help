@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block title %}Редагування пропозиціЇ{{ offers.title }} {% endblock title %}
+{% block title %}Новий запрос{% endblock title %}
 
 {% block content %}
 <ul class="breadcrumb ms-4">
     <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="bi bi-house-door-fill"></i></a></li>
-    <li class="breadcrumb-item"><a href="{% url 'offers_list' %}">ПропозиціЇ</a></li>
-    <li class="breadcrumb-item active">{{ offers.title }}</li>
+    <li class="breadcrumb-item active">Новий запрос</li>
 </ul>
-<h2>Редагувати пропозицію</h2>
+<h2>Новий запрос</h2>
 <form action="" method="post">
+    <div class="container-fluid"></div>
     <div class="card mt-4 card-edit bg-light bg-opacity-50 mx-auto" style="max-width: 85%;">
         <div class="card-body bg-light">
             {% csrf_token %}
@@ -18,6 +18,7 @@
         <div class="card-footer text-center text-muted">
             <input class= "btn btn-primary" type="submit" value="Зберегти">
         </div>
+    </div>
     </div>
 </form>
 {% endblock content %}

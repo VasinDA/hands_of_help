@@ -1,6 +1,5 @@
 from django import forms
 from offers.models import Offers
-from django.utils.translation import gettext_lazy as _
 
 class CreationOffersForm(forms.ModelForm):
     title = forms.CharField(label='Назва', min_length=10)
