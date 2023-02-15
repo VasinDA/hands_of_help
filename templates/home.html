@@ -60,6 +60,24 @@
             <div class="col-md-6">
                 <hr>
                 <h5 class="text-secondary">Запити</h5>
+                {% for requests in requests_list %}
+                <div class="container-fluid">
+                    <div class="card card-list bg-light bg-opacity-50">
+                        <div class="card-header">
+                            <span class="font-weight-bold">{{ requests.title }}</span> &middot;
+                            <span class="text-muted">by {{ requests.author }} |
+                                {{ requests.date }} | {{ requests.location }}</span>
+                        </div>
+                        <div class="card-body bg-light post-entry">
+                            <p>{{ requests.body }}</p>
+                        </div>
+                        <div class="card-footer text-center text-muted">
+                            <a class = "btn btn-success" href="{% url 'requests_detail' requests.pk %}">Детально</a>  
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
