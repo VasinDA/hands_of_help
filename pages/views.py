@@ -5,7 +5,7 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 
 class HomePageView(ListView):
-    model = Offers # why work without model Requests
+    model = Offers # why work without Requests model
     template_name = "home.html"
 
     def get_context_data(self, **kwargs):
