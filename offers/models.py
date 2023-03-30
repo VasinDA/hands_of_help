@@ -11,6 +11,7 @@ class Offers(models.Model):
         'accounts.CustomUser',
         on_delete=models.CASCADE,
     )
+    request = models.ForeignKey('requests.Requests', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
