@@ -27,7 +27,7 @@
         </div>
     
     {% if user.is_authenticated and user.id == offers.author_id %}
-        <div class="card-footer align-content-center p-0"></div>
+        <div class="card-footer align-content-center p-0">
             <a class = "btn btn-primary col-md-6" href="{% url 'offers_edit' offers.pk %}">Редагувати</a>
             <a class = "btn btn-danger col-md-6" href="{% url 'offers_delete' offers.pk %}">Видалити</a>
         </div>
