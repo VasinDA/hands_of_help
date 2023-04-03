@@ -31,6 +31,28 @@
     {% endif %}
     </div>
 </div>
+{% for offers in offers_list %}
+<div class="container-fluid">
+    <div class="card card-list bg-light bg-opacity-50">
+        <div class="card-header">
+            <span class="font-weight-bold">{{ offers.title }}</span> &middot;
+            <span class="text-muted">by {{ offers.author }} |
+                {{ offers.date }} | {{ offers.location }}</span>
+        </div>
+        <div class="card-body bg-light post-entry">
+            <p>{{ offers.body }}</p>
+        </div>
+        <div class="card-footer text-center text-muted">
+            <a class = "btn btn-success" href="{% url 'offers_detail' offers.pk %}">Детально</a>  
+            {% if user.is_authenticated and user.id == offers.author_id %} 
+            | <a class = "btn btn-primary" href="{% url 'offers_edit' offers.pk %}">Редагувати</a> | 
+            <a class = "btn btn-danger" href="{% url 'offers_delete' offers.pk %}">Видалити</a> 
+            {% endif %}
+        </div>
+    </div>
+    </br>
+</div>
+{% endfor %}
 <h4>Нова пропозиція</h4>
 <form action="" method="post">
     <div class="container-fluid"></div>

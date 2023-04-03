@@ -1,6 +1,5 @@
 from django import forms
 from requests.models import Requests
-from offers.models import Offers
 
 class CreationRequestsForm(forms.ModelForm):
     title = forms.CharField(label='Назва', min_length=10)
@@ -18,8 +17,3 @@ class UpdateRequestsForm(forms.ModelForm):
     class Meta:
         model = Requests
         fields = ['title', 'body']
-
-class CreationOffersForm(forms.ModelForm):
-    class Meta:
-        model = Offers
-        fields = ['title', 'body', 'url_image', 'location']

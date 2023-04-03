@@ -1,10 +1,12 @@
 from django.views import View
-from .forms import CreationRequestsForm, UpdateRequestsForm, CreationOffersForm
+from offers.forms import CreationOffersForm
+from .forms import CreationRequestsForm, UpdateRequestsForm
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy, reverse
+from offers.models import Offers
 from .models import Requests
 
 class OfferGet(DeleteView):
@@ -14,6 +16,7 @@ class OfferGet(DeleteView):
     def get_context_data(self, **kwargs) :
         context = super().get_context_data(**kwargs)
         context["form"] = CreationOffersForm()
+        context["offers_list"] = Offers.objects.filter(request_id=self.get_object().pk)
         return context
 
 class OfferPost(SingleObjectMixin, FormView):
@@ -33,8 +36,8 @@ class OfferPost(SingleObjectMixin, FormView):
         return super().form_valid(form)
     
     def get_success_url(self):
-        offer = self.get_object() 
-        return reverse("requests_detail", kwargs={"pk": offer.pk})
+        request = self.get_object() 
+        return reverse("requests_detail", kwargs={"pk": request.pk})
 
 class RequestsListView(ListView):
     model = Requests
