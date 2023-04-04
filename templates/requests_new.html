@@ -5,20 +5,21 @@
 {% block content %}
 <ul class="breadcrumb ms-4">
     <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="bi bi-house-door-fill"></i></a></li>
+    <li class="breadcrumb-item"><a href="{% url 'requests_list' %}">Запроси</a></li>
     <li class="breadcrumb-item active">Новий запрос</li>
 </ul>
-<h2>Новий запрос</h2>
-<form action="" method="post">
-    <div class="container-fluid"></div>
-    <div class="card mt-4 card-edit bg-light bg-opacity-50 mx-auto" style="max-width: 85%;">
-        <div class="card-body bg-light">
-            {% csrf_token %}
-            {{ form|crispy }}
+<div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
+    <h5>Новий запрос</h5>
+    <form action="" method="post">
+        <div class="card card-edit bg-light bg-opacity-50">
+            <div class="card-body bg-light">
+                {% csrf_token %}
+                {{ form|crispy }}
+            </div>
+            <div class="card-footer text-center text-muted">
+                <input class= "btn btn-primary" type="submit" value="Зберегти">
+            </div>
         </div>
-        <div class="card-footer text-center text-muted">
-            <input class= "btn btn-primary" type="submit" value="Зберегти">
-        </div>
-    </div>
-    </div>
-</form>
+    </form>
+</div>
 {% endblock content %}

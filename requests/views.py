@@ -1,4 +1,3 @@
-from django.views import View
 from offers.forms import CreationOffersForm
 from .forms import CreationRequestsForm, UpdateRequestsForm
 from django.views.generic import ListView, DetailView
@@ -16,7 +15,7 @@ class OfferGet(DeleteView):
     def get_context_data(self, **kwargs) :
         context = super().get_context_data(**kwargs)
         context["form"] = CreationOffersForm()
-        context["offers_list"] = Offers.objects.filter(request_id=self.get_object().pk)
+        context["offers_list"] = Offers.objects.filter(request_id=self.get_object().pk).order_by('-date')
         return context
 
 class OfferPost(SingleObjectMixin, FormView):
@@ -42,6 +41,11 @@ class OfferPost(SingleObjectMixin, FormView):
 class RequestsListView(ListView):
     model = Requests
     template_name = "requests_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['requests_list'] = Requests.objects.all().order_by('-date')
+        return context
 
 class RequestsDetailView(LoginRequiredMixin, DetailView):
     def get(self, request, *args, **kwargs):

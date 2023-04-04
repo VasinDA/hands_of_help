@@ -5,58 +5,62 @@
 {% block content %}
 <ul class="breadcrumb ms-4">
     <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="bi bi-house-door-fill"></i></a></li>
-    <li class="breadcrumb-item"><a href="{% url 'requests_list' %}">Запроси</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'requests_list' %}">Запити</a></li>
     <li class="breadcrumb-item active">{{ requests.title }}</li>
 </ul>
-<div class="card bg-light bg-opacity-50 mx-auto" style="max-width: 85%;">
-    <div class="card-header">
-        <span class="font-weight-bold">{{ requests.title }}</span> &middot;
-        <span class="text-muted">by {{ requests.author }} |
-            {{ requests.date }}</span>
+<div class="mb-4">
+    <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
     </div>
-    <div class="row g-0">
-        <div class="col-md-12">
-            <div class="card-body bg-light post-entry">
-                <p><h6>Опис:</h6>{{ requests.body }}</p>
-                <p><h6>Місто:</h6>{{ requests.location }}</p>
-                <p><h6>Телефон:</h6>{{ user.phone }}</p>
+<div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
+    <h5>Запит - {{ requests.title }}</h5>
+    <div class="card bg-light bg-opacity-50">
+        <div class="card-header">
+            <span class="text-muted">by {{ requests.author }} |
+                {{ requests.date }}</span>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-12">
+                <div class="card-body bg-light post-entry">
+                    <p><h6>Опис:</h6>{{ requests.body }}</p>
+                    <p><h6>Місто:</h6>{{ requests.location }}</p>
+                    <p><h6>Телефон:</h6>{{ user.phone }}</p>
+                </div>
+            </div>
+            <div class="card-footer text-center text-muted">
+                {% if user.is_authenticated and user.id == requests.author_id %}
+                <a class = "btn btn-primary" href="{% url 'requests_edit' requests.pk %}">Редагувати</a> | 
+                <a class = "btn btn-danger" href="{% url 'requests_delete' requests.pk %}">Видалити</a>
+                {% endif %}
             </div>
         </div>
-    
-    {% if user.is_authenticated and user.id == requests.author_id %}
-        <div class="card-footer align-content-center p-0"></div>
-            <a class = "btn btn-primary col-md-6" href="{% url 'requests_edit' requests.pk %}">Редагувати</a>
-            <a class = "btn btn-danger col-md-6" href="{% url 'requests_delete' requests.pk %}">Видалити</a>
-        </div>
-    {% endif %}
     </div>
 </div>
-{% for offers in offers_list %}
-<div class="container-fluid">
-    <div class="card card-list bg-light bg-opacity-50">
-        <div class="card-header">
-            <span class="font-weight-bold">{{ offers.title }}</span> &middot;
-            <span class="text-muted">by {{ offers.author }} |
-                {{ offers.date }} | {{ offers.location }}</span>
+<div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
+    <h5>Пропозиції</h5>
+    {% for offers in offers_list %}
+        <div class="card card-list bg-light bg-opacity-50 mt-2">
+            <div class="card-header">
+                <span class="font-weight-bold">{{ offers.title }}</span> &middot;
+                <span class="text-muted">by {{ offers.author }} |
+                    {{ offers.date }} | {{ offers.location }}</span>
+            </div>
+            <div class="card-body bg-light post-entry">
+                <p>{{ offers.body }}</p>
+            </div>
+            <div class="card-footer text-center text-muted">
+                <a class = "btn btn-success" href="{% url 'offers_detail' offers.pk %}">Детально</a>  
+                {% if user.is_authenticated and user.id == offers.author_id %} 
+                | <a class = "btn btn-primary" href="{% url 'offers_edit' offers.pk %}">Редагувати</a> | 
+                <a class = "btn btn-danger" href="{% url 'offers_delete' offers.pk %}">Видалити</a> 
+                {% endif %}
+            </div>
         </div>
-        <div class="card-body bg-light post-entry">
-            <p>{{ offers.body }}</p>
-        </div>
-        <div class="card-footer text-center text-muted">
-            <a class = "btn btn-success" href="{% url 'offers_detail' offers.pk %}">Детально</a>  
-            {% if user.is_authenticated and user.id == offers.author_id %} 
-            | <a class = "btn btn-primary" href="{% url 'offers_edit' offers.pk %}">Редагувати</a> | 
-            <a class = "btn btn-danger" href="{% url 'offers_delete' offers.pk %}">Видалити</a> 
-            {% endif %}
-        </div>
-    </div>
-    </br>
+    {% endfor %}
 </div>
-{% endfor %}
-<h4>Нова пропозиція</h4>
+<div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
+<h5>Запропонувати пропозицію</h5>
 <form action="" method="post">
-    <div class="container-fluid"></div>
-    <div class="card mt-4 card-edit bg-light bg-opacity-50 mx-auto" style="max-width: 85%;">
+    <div class=" card card-edit bg-light bg-opacity-50 " style="max-width: 50%">
         <div class="card-body bg-light">
             {% csrf_token %}
             {{ form|crispy }}
@@ -65,8 +69,9 @@
             <input class= "btn btn-primary" type="submit" value="Зберегти">
         </div>
     </div>
-    </div>
 </form>
-</br>
-<a href="{% url 'requests_list' %}" class="btn btn-primary ms-4">До запросу</a>
+</div>
+<div class="mb-2">
+<a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
+</div>
 {% endblock content %}

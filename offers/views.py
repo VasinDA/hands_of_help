@@ -1,4 +1,3 @@
-from django.views import View
 from .forms import CreationOffersForm, UpdateOffersForm
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
@@ -10,6 +9,11 @@ from .models import Offers
 class OffersListView(ListView):
     model = Offers
     template_name = "offers_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['offers_list'] = Offers.objects.filter(request_id__isnull=True).order_by('-date')
+        return context
 
 class OffersDetailView(LoginRequiredMixin, DetailView):
     model = Offers

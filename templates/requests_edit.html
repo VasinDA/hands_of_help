@@ -8,16 +8,18 @@
     <li class="breadcrumb-item"><a href="{% url 'requests_list' %}">Запроси</a></li>
     <li class="breadcrumb-item active">{{ requests.title }}</li>
 </ul>
-<h2>Редагувати запрос</h2>
-<form action="" method="post">
-    <div class="card mt-4 card-edit bg-light bg-opacity-50 mx-auto" style="max-width: 85%;">
-        <div class="card-body bg-light">
-            {% csrf_token %}
-            {{ form|crispy }}
+<div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
+<h5>Редагувати запит</h5>
+    <form action="" method="post">
+        <div class="card card-edit bg-light bg-opacity-50 mx-auto">
+            <div class="card-body bg-light">
+                {% csrf_token %}
+                {{ form|crispy }}
+            </div>
+            <div class="card-footer text-center text-muted">
+                <input class= "btn btn-primary" type="submit" value="Зберегти">
+            </div>
         </div>
-        <div class="card-footer text-center text-muted">
-            <input class= "btn btn-primary" type="submit" value="Зберегти">
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 {% endblock content %}

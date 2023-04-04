@@ -10,7 +10,7 @@ class HomePageView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['offers_list'] = Offers.objects.all().order_by('-date')[:5]
+        context['offers_list'] = Offers.objects.filter(request_id__isnull=True).order_by('-date')[:5]
         context['requests_list'] = Requests.objects.all().order_by('-date')[:5]
         return context
 

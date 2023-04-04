@@ -20,7 +20,7 @@ class UserRegisterForm(UserCreationForm):
         'password1', 'password2')
 
   def clean_username(self):  
-    username = self.cleaned_data['username'].lower()  
+    username = self.cleaned_data['username'] 
     new = CustomUser.objects.filter(username = username)  
     if new.count():  
       raise ValidationError("Такий користувач вже існує")  
