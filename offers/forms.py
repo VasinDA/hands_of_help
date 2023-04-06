@@ -6,15 +6,17 @@ class CreationOffersForm(forms.ModelForm):
     body = forms.Textarea()
     url_image = forms.URLField(label='Посилання на фото')
     location= forms.CharField(label='Місцезнаходження')
+    status = forms.ChoiceField(label='Статус')
     
     class Meta:
         model = Offers
-        fields = ['title', 'body', 'url_image', 'location']
+        fields = ['title', 'body', 'url_image', 'location', 'status']
         
 class UpdateOffersForm(forms.ModelForm):
     title = forms.CharField(label='Назва', min_length=10)
     body = forms.Textarea()
+    status = forms.ChoiceField(label='Статус')
 
     class Meta:
         model = Offers
-        fields = ['title', 'body','url_image']
+        fields = ['title', 'body','url_image', 'status']

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'offers.apps.OffersConfig',
     'requests.apps.RequestsConfig',
+    'statuses.apps.StatusesConfig',
 ]
 
 MIDDLEWARE = [
