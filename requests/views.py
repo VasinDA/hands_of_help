@@ -8,7 +8,7 @@ from django.urls import reverse_lazy, reverse
 from offers.models import Offers
 from .models import Requests
 
-class OfferGet(DeleteView):
+class OfferGet(DetailView):
     model = Requests
     template_name = "requests_detail.html"
 
@@ -44,7 +44,7 @@ class RequestsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['requests_list'] = Requests.objects.all().order_by('-date')
+        context['requests_list'] = Requests.objects.filter(offer_id__isnull=True).order_by('-date')
         return context
 
 class RequestsDetailView(LoginRequiredMixin, DetailView):

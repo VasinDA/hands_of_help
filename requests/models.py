@@ -3,13 +3,14 @@ from django.urls import reverse
 
 class Requests(models.Model):
     title = models.CharField(max_length=255)
-    body = models.TextField('Опис', max_length=255)
+    body = models.TextField('Опис', max_length=1024)
     location = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
         'accounts.CustomUser',
         on_delete=models.CASCADE,
     )
+    offer = models.ForeignKey('offers.Offers', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

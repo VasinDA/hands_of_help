@@ -10,7 +10,7 @@
 </ul>
 <div class="mb-4">
     <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
-    </div>
+</div>
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Запит - {{ requests.title }}</h5>
     <div class="card bg-light bg-opacity-50">
@@ -58,20 +58,20 @@
     {% endfor %}
 </div>
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
-<h5>Запропонувати пропозицію</h5>
-<form action="" method="post">
-    <div class=" card card-edit bg-light bg-opacity-50 " style="max-width: 50%">
-        <div class="card-body bg-light">
-            {% csrf_token %}
-            {{ form|crispy }}
+    <h5>Запропонувати пропозицію</h5>
+    <form action="" method="post">
+        <div class=" card card-edit bg-light bg-opacity-50 " style="max-width: 50%">
+            <div class="card-body bg-light">
+                {% csrf_token %}
+                {{ form|crispy }}
+            </div>
+            <div class="card-footer text-center text-muted">
+                <input class= "btn btn-primary" type="submit" value="Зберегти">
+            </div>
         </div>
-        <div class="card-footer text-center text-muted">
-            <input class= "btn btn-primary" type="submit" value="Зберегти">
-        </div>
-    </div>
-</form>
+    </form>
 </div>
 <div class="mb-2">
-<a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
+    <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
 </div>
 {% endblock content %}

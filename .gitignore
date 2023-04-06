@@ -1,5 +1,4 @@
 *.pyc
 __pycache__
 .venv/
-
-offers/migrations/0002_offers_location_offers_ulr_image.py
+migrations/
