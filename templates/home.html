@@ -39,7 +39,7 @@
                 <hr>
                 <h5 class="text-secondary">Пропозиції</h5>
                 {% for offers in offers_list %}
-                <div class="container-fluid">
+                <div class="container-fluid mb-2 p-2 border border-2 rounded">
                     <div class="card card-list bg-light bg-opacity-50">
                         <div class="card-header">
                             <span class="font-weight-bold">{{ offers.title }}</span> &middot;
@@ -53,7 +53,6 @@
                             <a class = "btn btn-success" href="{% url 'offers_detail' offers.pk %}">Детально</a>  
                         </div>
                     </div>
-                    <br />
                 </div>
                 {% endfor %}
             </div>
@@ -61,7 +60,7 @@
                 <hr>
                 <h5 class="text-secondary">Запити</h5>
                 {% for requests in requests_list %}
-                <div class="container-fluid">
+                <div class="container-fluid mb-2 p-2 border border-2 rounded">
                     <div class="card card-list bg-light bg-opacity-50">
                         <div class="card-header">
                             <span class="font-weight-bold">{{ requests.title }}</span> &middot;
@@ -75,7 +74,6 @@
                             <a class = "btn btn-success" href="{% url 'requests_detail' requests.pk %}">Детально</a>  
                         </div>
                     </div>
-                    <br />
                 </div>
                 {% endfor %}
             </div>
