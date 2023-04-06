@@ -12,9 +12,6 @@
     {% if requests.offer_id == NULL %}
         <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
     {% endif %}
-    {% if requests.offer_id %}
-        <a href="{% url 'offers_detail' requests.offer_id%}" class="btn btn-primary">До пропозиції</a>
-    {% endif %}
 </div>
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Запит - {{ requests.title }}</h5>

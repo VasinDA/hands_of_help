@@ -17,4 +17,4 @@ class UpdateOffersForm(forms.ModelForm):
 
     class Meta:
         model = Offers
-        fields = ['title', 'body']
+        fields = ['title', 'body','url_image']
