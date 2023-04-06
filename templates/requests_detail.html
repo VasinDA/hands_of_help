@@ -9,7 +9,12 @@
     <li class="breadcrumb-item active">{{ requests.title }}</li>
 </ul>
 <div class="mb-4">
-    <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
+    {% if requests.offer_id == NULL %}
+        <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
+    {% endif %}
+    {% if requests.offer_id %}
+        <a href="{% url 'offers_detail' requests.offer_id%}" class="btn btn-primary">До пропозиції</a>
+    {% endif %}
 </div>
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Запит - {{ requests.title }}</h5>
@@ -35,6 +40,7 @@
         </div>
     </div>
 </div>
+{% if requests.offer_id == NULL %}
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Пропозиції</h5>
     {% for offers in offers_list %}
@@ -57,6 +63,8 @@
         </div>
     {% endfor %}
 </div>
+{% endif %}
+{% if requests.offer_id == NULL %}
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Запропонувати пропозицію</h5>
     <form action="" method="post">
@@ -71,7 +79,13 @@
         </div>
     </form>
 </div>
+{% endif %}
 <div class="mb-2">
-    <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
+    {% if requests.offer_id == NULL %}
+        <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
+    {% endif %}
+    {% if requests.offer_id %}
+        <a href="{% url 'offers_detail' requests.offer_id%}" class="btn btn-primary">До пропозиції</a>
+    {% endif %}
 </div>
 {% endblock content %}

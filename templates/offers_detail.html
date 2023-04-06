@@ -9,7 +9,12 @@
     <li class="breadcrumb-item active">{{ offers.title }}</li>
 </ul>
 <div class="mb-4">
-    <a href="{% url 'offers_list' %}" class="btn btn-primary">До пропозицій</a>
+    {% if offers.request_id == NULL %}
+        <a href="{% url 'offers_list' %}" class="btn btn-primary">До пропозицій</a>
+    {% endif %}
+    {% if offers.request_id %}
+        <a href="{% url 'requests_detail' offers.request_id%}" class="btn btn-primary">До запиту</a>
+    {% endif %}
 </div>
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Пропозиція - {{ offers.title }}</h5>
@@ -38,43 +43,52 @@
         </div>
     </div>
 </div>
-<div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
-    <h5>Запити</h5>
-    {% for requests in requests_list %}
-        <div class="card card-list bg-light bg-opacity-50">
-            <div class="card-header">
-                <span class="font-weight-bold">{{ requests.title }}</span> &middot;
-                <span class="text-muted">by {{ requests.author }} |
-                    {{ requests.date }} | {{ requests.location }}</span>
+{% if offers.request_id == NULL %}
+    <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
+        <h5>Запити</h5>
+        {% for requests in requests_list %}
+            <div class="card card-list bg-light bg-opacity-50">
+                <div class="card-header">
+                    <span class="font-weight-bold">{{ requests.title }}</span> &middot;
+                    <span class="text-muted">by {{ requests.author }} |
+                        {{ requests.date }} | {{ requests.location }}</span>
+                </div>
+                <div class="card-body bg-light post-entry">
+                    <p>{{ requests.body }}</p>
+                </div>
+                <div class="card-footer text-center text-muted">
+                    <a class = "btn btn-success" href="{% url 'requests_detail' requests.pk %}">Детально</a>  
+                    {% if user.is_authenticated and user.id == requests.author_id %} 
+                    | <a class = "btn btn-primary" href="{% url 'requests_edit' requests.pk %}">Редагувати</a> | 
+                    <a class = "btn btn-danger" href="{% url 'requests_delete' requests.pk %}">Видалити</a> 
+                    {% endif %}
+                </div>
             </div>
-            <div class="card-body bg-light post-entry">
-                <p>{{ requests.body }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if offers.request_id == NULL %}
+    <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
+        <h5>Зробити запит</h5>
+        <form action="" method="post">
+            <div class="card card-edit bg-light bg-opacity-50" style="max-width: 50%">
+                <div class="card-body bg-light">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                </div>
+                <div class="card-footer text-center text-muted">
+                    <input class= "btn btn-primary" type="submit" value="Зберегти">
+                </div>
             </div>
-            <div class="card-footer text-center text-muted">
-                <a class = "btn btn-success" href="{% url 'requests_detail' requests.pk %}">Детально</a>  
-                {% if user.is_authenticated and user.id == requests.author_id %} 
-                | <a class = "btn btn-primary" href="{% url 'requests_edit' requests.pk %}">Редагувати</a> | 
-                <a class = "btn btn-danger" href="{% url 'requests_delete' requests.pk %}">Видалити</a> 
-                {% endif %}
-            </div>
-        </div>
-    {% endfor %}
-</div>
-<div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
-    <h5>Зробити запит</h5>
-    <form action="" method="post">
-        <div class="card card-edit bg-light bg-opacity-50" style="max-width: 50%">
-            <div class="card-body bg-light">
-                {% csrf_token %}
-                {{ form|crispy }}
-            </div>
-            <div class="card-footer text-center text-muted">
-                <input class= "btn btn-primary" type="submit" value="Зберегти">
-            </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+{% endif %}
 <div class="mb-2">
-    <a href="{% url 'offers_list' %}" class="btn btn-primary">До пропозицій</a>
+    {% if offers.request_id == NULL %}
+        <a href="{% url 'offers_list' %}" class="btn btn-primary">До пропозицій</a>
+    {% endif %}
+    {% if offers.request_id %}
+        <a href="{% url 'requests_detail' offers.request_id%}" class="btn btn-primary">До запиту</a>
+    {% endif %}
 </div>
 {% endblock content %}
