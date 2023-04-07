@@ -12,7 +12,7 @@ class Offers(models.Model):
         on_delete=models.CASCADE,
     )
     request = models.ForeignKey('requests.Requests', on_delete=models.CASCADE)
-    status = models.ForeignKey('statuses.Status', on_delete=models.PROTECT)
+    status = models.ForeignKey('statuses.Status', on_delete=models.PROTECT, default=2)
 
     def __str__(self):
         return self.title

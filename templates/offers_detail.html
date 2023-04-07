@@ -40,7 +40,7 @@
         </div>
     </div>
 </div>
-{% if offers.request_id == NULL %}
+{% if user.is_authenticated and offers.request_id == NULL %}
     <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
         <h5>Запити</h5>
         {% for requests in requests_list %}
@@ -64,7 +64,7 @@
         {% endfor %}
     </div>
 {% endif %}
-{% if offers.request_id == NULL %}
+{% if user.is_authenticated and offers.request_id == NULL %}
     <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
         <h5>Зробити запит</h5>
         <form action="" method="post">

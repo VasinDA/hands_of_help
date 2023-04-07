@@ -47,7 +47,7 @@ class RequestsListView(ListView):
         context['requests_list'] = Requests.objects.filter(offer_id__isnull=True).order_by('-date')
         return context
 
-class RequestsDetailView(LoginRequiredMixin, DetailView):
+class RequestsDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         view = OfferGet.as_view()
         return view(request, *args, **kwargs)

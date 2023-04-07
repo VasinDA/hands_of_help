@@ -37,7 +37,7 @@
         </div>
     </div>
 </div>
-{% if requests.offer_id == NULL %}
+{% if user.is_authenticated and requests.offer_id == NULL %}
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Пропозиції</h5>
     {% for offers in offers_list %}
@@ -61,7 +61,7 @@
     {% endfor %}
 </div>
 {% endif %}
-{% if requests.offer_id == NULL %}
+{% if user.is_authenticated and requests.offer_id == NULL %}
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Запропонувати пропозицію</h5>
     <form action="" method="post">
