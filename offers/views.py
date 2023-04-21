@@ -15,7 +15,7 @@ class RequestGet(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = CreationRequestsForm()
-        context["requests_list"] = Requests.objects.filter(offer_id=self.get_object().pk).order_by('-date')
+        context["requests_list"] = self.object.requests_set.all().order_by('-date')
         return context
     
 class RequestPost(SingleObjectMixin, FormView):
@@ -30,8 +30,9 @@ class RequestPost(SingleObjectMixin, FormView):
     def form_valid(self, form):
         request = form.save(commit=False)
         request.author = self.request.user
-        request.request = self.object
         request.save()
+        offer = self.object
+        request.offer.add(offer)
         return super().form_valid(form)
     
     def get_success_url(self):

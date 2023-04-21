@@ -15,7 +15,7 @@ class OfferGet(DetailView):
     def get_context_data(self, **kwargs) :
         context = super().get_context_data(**kwargs)
         context["form"] = CreationOffersForm()
-        context["offers_list"] = Offers.objects.filter(request_id=self.get_object().pk).order_by('-date')
+        context["offers_list"] = self.object.offers_set.all().order_by('-date')
         return context
 
 class OfferPost(SingleObjectMixin, FormView):
@@ -30,8 +30,9 @@ class OfferPost(SingleObjectMixin, FormView):
     def form_valid(self, form):
         offer = form.save(commit=False)
         offer.author = self.request.user
-        offer.request = self.object
         offer.save()
+        request = self.object
+        offer.request.add(request)
         return super().form_valid(form)
     
     def get_success_url(self):

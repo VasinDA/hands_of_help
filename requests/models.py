@@ -10,7 +10,7 @@ class Requests(models.Model):
         'accounts.CustomUser',
         on_delete=models.CASCADE,
     )
-    offer = models.ForeignKey('offers.Offers', on_delete=models.CASCADE)
+    offer = models.ManyToManyField('offers.Offers')
     status = models.ForeignKey('statuses.Status', on_delete=models.PROTECT, default=2)
 
     def __str__(self):
