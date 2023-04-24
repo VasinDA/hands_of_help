@@ -16,6 +16,7 @@ class RequestGet(DetailView):
         context = super().get_context_data(**kwargs)
         context["form"] = CreationRequestsForm()
         context["requests_list"] = self.object.requests_set.all().order_by('-date')
+        context["offer_in_request"] = self.object.request.all()
         return context
     
 class RequestPost(SingleObjectMixin, FormView):
