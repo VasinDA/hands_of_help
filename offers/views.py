@@ -14,9 +14,14 @@ class RequestGet(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        offer = self.object
+        offer_in_request =  offer.request.all()
+        context["offer_in_request"] =  offer_in_request
+        if offer_in_request:
+            context["request_id"] = offer.request.values("id").first()["id"]
+            return context
         context["form"] = CreationRequestsForm()
-        context["requests_list"] = self.object.requests_set.all().order_by('-date')
-        context["offer_in_request"] = self.object.request.all()
+        context["requests_list"] = offer.requests_set.all().order_by('-date')
         return context
     
 class RequestPost(SingleObjectMixin, FormView):
@@ -46,7 +51,7 @@ class OffersListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['offers_list'] = Offers.objects.filter(request_id__isnull=True).order_by('-date')
+        context['offers_list'] = Offers.objects.exclude(request__isnull=False).order_by('-date')
         return context
 
 class OffersDetailView(DetailView):

@@ -9,7 +9,7 @@
     <li class="breadcrumb-item active">{{ offers.title }}</li>
 </ul>
 <div class="mb-4">
-    {% if offers.request_id == NULL %}
+    {% if not offer_in_request %}
         <a href="{% url 'offers_list' %}" class="btn btn-primary">До пропозицій</a>
     {% endif %}
 </div>
@@ -85,7 +85,7 @@
         <a href="{% url 'offers_list' %}" class="btn btn-primary">До пропозицій</a>
     {% endif %}
     {% if offer_in_request %}
-        <a href="{% url 'requests_detail' offers.request.requests_id%}" class="btn btn-primary">До запиту</a>
+        <a href="{% url 'requests_detail' request_id%}" class="btn btn-primary">До запиту</a>
     {% endif %}
 </div>
 {% endblock content %}
