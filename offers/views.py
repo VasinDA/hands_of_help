@@ -85,6 +85,11 @@ class OffersDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = "offers_delete.html"
     success_url = reverse_lazy("offers_list")
 
+    def delete_requests(self):
+        offer = self.object
+        requests = offer.requests_set.all()
+        requests.delete()
+
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
