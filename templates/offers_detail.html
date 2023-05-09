@@ -40,7 +40,7 @@
         </div>
     </div>
 </div>
-{% if user.is_authenticated and not offer_in_request and offers.status_id == 2 %}
+{% if not offer_in_request %}
     <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
         <h5>Запити</h5>
         {% for requests in requests_list %}

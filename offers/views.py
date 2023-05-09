@@ -7,6 +7,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy, reverse
 from requests.models import Requests
 from .models import Offers
+from django.db.models import Q
 
 class RequestGet(DetailView):
     model = Offers
@@ -20,9 +21,14 @@ class RequestGet(DetailView):
         if offer_in_request:
             context["request_id"] = offer.request.values("id").first()["id"]
             return context
-        context["form"] = CreationRequestsForm()
-        context["requests_list"] = offer.requests_set.all().order_by('-date')
+        if self.request.user.is_authenticated:
+           context["form"] = CreationRequestsForm() 
+           context["requests_list"] = offer.requests_set.filter(Q(author_id=self.request.user) | Q(status_id=2)).order_by('-date')
+           return context
+        context["requests_list"] = offer.requests_set.filter(status_id=2).order_by('-date')
+        print(context)
         return context
+                
     
 class RequestPost(SingleObjectMixin, FormView):
     model = Offers
