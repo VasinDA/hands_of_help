@@ -7,7 +7,6 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy, reverse
 from requests.models import Requests
 from .models import Offers
-from accounts.models import CustomUser
 from django.db.models import Q
 
 class RequestGet(DetailView):
@@ -61,7 +60,11 @@ class OffersListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['offers_list'] = Offers.objects.exclude(request__isnull=False).order_by('-date')
+        if self.request.user.is_superuser:
+            context['offers_list'] = Offers.objects.exclude(request__isnull=False).order_by('-date')
+        if self.request.user.is_authenticated:
+            context['offers_list'] = Offers.objects.exclude(request__isnull=False).filter(Q(author_id=self.request.user) | Q(status_id=2)).order_by('-date')
+        context['offers_list'] = Offers.objects.exclude(request__isnull=False).filter(status_id=2).order_by('-date')
         return context
 
 class OffersDetailView(DetailView):
@@ -95,12 +98,12 @@ class OffersDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = "offers_delete.html"
     success_url = reverse_lazy("offers_list")
 
-    def delete_requests(self):
+    def form_valid(self, form):
         offer = self.object
         requests = offer.requests_set.all()
-        print(requests)
         requests.delete()
-
+        return super().form_valid(form)
+ 
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user or self.request.user.is_superuser
