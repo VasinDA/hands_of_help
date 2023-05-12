@@ -52,7 +52,7 @@
             </div>
             <div class="card-footer text-center text-muted">
                 <a class = "btn btn-success" href="{% url 'offers_detail' offers.pk %}">Детально</a>  
-                {% if user.is_authenticated and user.id == requests.author_id or user.is_superuser %} 
+                {% if user.is_authenticated and user.id == offers.author_id or user.is_superuser %} 
                 | <a class = "btn btn-primary" href="{% url 'offers_edit' offers.pk %}">Редагувати</a> | 
                 <a class = "btn btn-danger" href="{% url 'offers_delete' offers.pk %}">Видалити</a> 
                 {% endif %}
@@ -61,7 +61,7 @@
     {% endfor %}
 </div>
 {% endif %}
-{% if user.is_authenticated and not request_in_offer and requests.status_id == 2 %}
+{% if user.is_authenticated and not request_in_offer and requests.status_id == 2 and user.id != requests.author_id%}
 <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
     <h5>Запропонувати пропозицію</h5>
     <form action="" method="post">
@@ -78,10 +78,10 @@
 </div>
 {% endif %}
 <div class="mb-2">
-    {% if not offer_in_request %}
+    {% if not request_in_offer %}
         <a href="{% url 'requests_list' %}" class="btn btn-primary">До запитів</a>
     {% endif %}
-    {% if offer_in_request %}
+    {% if request_in_offer %}
         <a href="{% url 'offers_detail' offer_id%}" class="btn btn-primary">До пропозиції</a>
     {% endif %}
 </div>
