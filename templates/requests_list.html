@@ -26,7 +26,7 @@
             </div>
             <div class="card-footer text-center text-muted">
                 <a class = "btn btn-success" href="{% url 'requests_detail' requests.pk %}">Детально</a>  
-                {% if user.is_authenticated and user.id == requests.author_id %} 
+                {% if user.is_authenticated and user.id == requests.author_id or user.is_superuser%} 
                 | <a class = "btn btn-primary" href="{% url 'requests_edit' requests.pk %}">Редагувати</a> | 
                 <a class = "btn btn-danger" href="{% url 'requests_delete' requests.pk %}">Видалити</a> 
                 {% endif %}

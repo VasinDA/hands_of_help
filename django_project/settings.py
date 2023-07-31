@@ -136,10 +136,15 @@ LOGOUT_REDIRECT_URL = "home"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465 
+EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
 EMAIL_HOST_USER = 'handsofhelpukraine@gmail.com'
-EMAIL_HOST_PASSWORD = '4D6e1823'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = 'uykfnkhcbeuffopq'
+EMAIL_TIMEOUT = 120
+EMAIL_CONN_MAX_AGE = 600
+
 
 AUTH_USER_MODEL = 'accounts.CustomUser'

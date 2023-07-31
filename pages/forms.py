@@ -1,8 +1,9 @@
 from django import forms
  
 class ContactForm(forms.Form):
-  email = forms.EmailField()
-  message = forms.CharField()
+  first_name = forms.CharField(label="Ім'я", min_length=5)
+  email = forms.EmailField(label="Пошта")
+  message = forms.CharField(label="Повідомлення", widget=forms.Textarea)
  
   class Meta:
-      fields = ['first_name', 'last_name', 'email', 'message']
+      fields = ['first_name', 'email', 'message']

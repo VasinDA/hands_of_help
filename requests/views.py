@@ -7,6 +7,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy, reverse
 from offers.models import Offers
 from .models import Requests
+from django.db.models import Q
 
 class OfferGet(DetailView):
     model = Requests
@@ -14,8 +15,21 @@ class OfferGet(DetailView):
 
     def get_context_data(self, **kwargs) :
         context = super().get_context_data(**kwargs)
-        context["form"] = CreationOffersForm()
-        context["offers_list"] = Offers.objects.filter(request_id=self.get_object().pk).order_by('-date')
+        request = self.object
+        request_in_offer =  request.offer.all()
+        context["request_in_offer"] =  request_in_offer
+        if request_in_offer:
+            context["offer_id"] = request.offer.values("id").first()["id"]
+            return context
+        if self.request.user.is_superuser:
+           context["form"] = CreationRequestsForm() 
+           context["offers_list"] = request.offers_set.all().order_by('-date')
+           return context
+        if self.request.user.is_authenticated:
+           context["form"] = CreationRequestsForm() 
+           context["offers_list"] = request.offers_set.filter(Q(author_id=self.request.user) | Q(status_id=2)).order_by('-date')
+           return context
+        context["offers_list"] = request.offers_set.filter(status_id=2).order_by('-date')
         return context
 
 class OfferPost(SingleObjectMixin, FormView):
@@ -30,8 +44,9 @@ class OfferPost(SingleObjectMixin, FormView):
     def form_valid(self, form):
         offer = form.save(commit=False)
         offer.author = self.request.user
-        offer.request = self.object
         offer.save()
+        request = self.object
+        offer.request.add(request)
         return super().form_valid(form)
     
     def get_success_url(self):
@@ -44,7 +59,11 @@ class RequestsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['requests_list'] = Requests.objects.filter(offer_id__isnull=True).order_by('-date')
+        if self.request.user.is_superuser:
+            context['requests_list'] = Requests.objects.exclude(offer__isnull=False).order_by('-date')
+        if self.request.user.is_authenticated:
+            context['requests_list'] = Requests.objects.exclude(offer__isnull=False).filter(Q(author_id=self.request.user) | Q(status_id=2)).order_by('-date')
+        context['requests_list'] = Requests.objects.exclude(offer__isnull=False).filter(status_id=2).order_by('-date')
         return context
 
 class RequestsDetailView(DetailView):
@@ -78,6 +97,12 @@ class RequestsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = "requests_delete.html"
     success_url = reverse_lazy("requests_list")
 
+    def form_valid(self, form):
+        request = self.object
+        offers = request.offers_set.all()
+        offers.delete()
+        return super().form_valid(form)
+ 
     def test_func(self):
         obj = self.get_object()
-        return obj.author == self.request.user
+        return obj.author == self.request.user or self.request.user.is_superuser

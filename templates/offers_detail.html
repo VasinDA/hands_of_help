@@ -9,7 +9,7 @@
     <li class="breadcrumb-item active">{{ offers.title }}</li>
 </ul>
 <div class="mb-4">
-    {% if offers.request_id == NULL %}
+    {% if not offer_in_request %}
         <a href="{% url 'offers_list' %}" class="btn btn-primary">До пропозицій</a>
     {% endif %}
 </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="card-footer text-center text-muted">
-                {% if user.is_authenticated and user.id == offers.author_id %}
+                {% if user.is_authenticated and user.id == offers.author_id or user.is_superuser %}
                     <a class = "btn btn-primary" href="{% url 'offers_edit' offers.pk %}">Редагувати</a> |
                     <a class = "btn btn-danger" href="{% url 'offers_delete' offers.pk %}">Видалити</a>
                 {% endif %}
@@ -40,11 +40,11 @@
         </div>
     </div>
 </div>
-{% if user.is_authenticated and offers.request_id == NULL %}
+{% if not offer_in_request and offers.status_id == 2 %}
     <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
         <h5>Запити</h5>
         {% for requests in requests_list %}
-            <div class="card card-list bg-light bg-opacity-50">
+            <div class="card mb-2 card-list bg-light bg-opacity-50">
                 <div class="card-header">
                     <span class="font-weight-bold">{{ requests.title }}</span> &middot;
                     <span class="text-muted">by {{ requests.author }} |
@@ -55,7 +55,7 @@
                 </div>
                 <div class="card-footer text-center text-muted">
                     <a class = "btn btn-success" href="{% url 'requests_detail' requests.pk %}">Детально</a>  
-                    {% if user.is_authenticated and user.id == requests.author_id %} 
+                    {% if user.is_authenticated and user.id == requests.author_id or user.is_superuser %} 
                     | <a class = "btn btn-primary" href="{% url 'requests_edit' requests.pk %}">Редагувати</a> | 
                     <a class = "btn btn-danger" href="{% url 'requests_delete' requests.pk %}">Видалити</a> 
                     {% endif %}
@@ -64,7 +64,7 @@
         {% endfor %}
     </div>
 {% endif %}
-{% if user.is_authenticated and offers.request_id == NULL %}
+{% if user.is_authenticated and not offer_in_request and offers.status_id == 2 and user.id != offers.author_id %}
     <div class="container-fluid mb-4 p-2 border border-2 rounded mx-auto" style="max-width: 85%">
         <h5>Зробити запит</h5>
         <form action="" method="post">
@@ -81,11 +81,11 @@
     </div>
 {% endif %}
 <div class="mb-2">
-    {% if offers.request_id == NULL %}
+    {% if not offer_in_request %}
         <a href="{% url 'offers_list' %}" class="btn btn-primary">До пропозицій</a>
     {% endif %}
-    {% if offers.request_id %}
-        <a href="{% url 'requests_detail' offers.request_id%}" class="btn btn-primary">До запиту</a>
+    {% if offer_in_request %}
+        <a href="{% url 'requests_detail' request_id%}" class="btn btn-primary">До запиту</a>
     {% endif %}
 </div>
 {% endblock content %}
